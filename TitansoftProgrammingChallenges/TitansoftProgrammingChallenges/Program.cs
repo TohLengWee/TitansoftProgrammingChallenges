@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace TitansoftProgrammingChallenges
@@ -9,7 +11,22 @@ namespace TitansoftProgrammingChallenges
     {
         private static void Main(string[] args)
         {
-            GetHtmlTagAndAttributesByRegex();
+        }
+
+        private static void GetUrlDomain()
+        {
+            string a =
+                "<div style=\"margin-left: 0px; margin-top: -20px; text-align: left;\"><a href=\"/wiki/File:Female_and_male_Pardalotus_punctatus.jpg\" title=\"About this image\"><img alt=\"About this image\" src=\"//bits.wikimedia.org/static-1.22wmf7/extensions/ImageMap/desc-20.png\" style=\"border: none;\" /></a></div>";
+            string b =
+                "<li class=\"interwiki-he\"><a href=\"//he.wikipedia.org/wiki/\" title=\"\" lang=\"he\" hreflang=\"he\"></a></li>";
+            string c =
+                @"<li class=""interwiki-da""><a href=""//da.wikipedia.org/wiki/"" title="""" lang=""da"" hreflang=""da""><b>Dansk</b></a></li>";
+            var href = new Regex(@"https?://(www2?\.)?(([A-Za-z0-9-]+\.)+[A-Za-z0-9]+)");
+            var matches = href.Matches(c);
+            foreach (Match match in matches)
+            {
+                Console.WriteLine($"group 1:{match.Groups[1].Value}, group 2:{match.Groups[2].Value}");
+            }
         }
 
         private static void GetHtmlTagAndAttributesByRegex()
